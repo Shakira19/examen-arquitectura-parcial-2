@@ -2,9 +2,9 @@
 package ec.edu.espe.examen.relacional.api;
 
 import ec.edu.espe.examen.relacional.exception.RegistryNotFoundException;
-import ec.edu.espe.examen.relacional.model.Cliente;
-import ec.edu.espe.examen.relacional.service.ClienteService;
-import ec.edu.espe.examen.relacional.api.dto.ClienteRQ;
+import ec.edu.espe.examen.relacional.model.Client;
+import ec.edu.espe.examen.relacional.service.ClientService;
+import ec.edu.espe.examen.relacional.api.dto.ClientRQ;
 import ec.edu.espe.examen.relacional.exception.InsertException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,33 +24,45 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/api/cliente")
+@RequestMapping("/api/client")
 @Slf4j
-public class ClienteController {
-    private final ClienteService service;
+public class ClientController {
+    private final ClientService service;
     
-    public ClienteController(ClienteService service){
+    public ClientController(ClientService service){
         this.service = service;
     }
     
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarClientes() {
+    public ResponseEntity<List<Client>> listClient() {
         try {
             log.info("All clients were listed");
-            return ResponseEntity.ok(this.service.listarClientes());
+            return ResponseEntity.ok(this.service.getAllClients());
+        } catch (RegistryNotFoundException e) {
+            return ResponseEntity.noContent().build();
+        }
+    }
+    
+    @GetMapping("/search/{id}")
+    public ResponseEntity<Client> listClientById(String id) {
+        try {
+            log.info("Client by identification was listed");
+            return ResponseEntity.ok(this.service.getClientById(id));
         } catch (RegistryNotFoundException e) {
             return ResponseEntity.noContent().build();
         }
     }
     
     @PostMapping("/create")
-    public ResponseEntity crearCliente(@RequestBody ClienteRQ cliente){
+    public ResponseEntity creatClient(@RequestBody ClientRQ client){
         try {
             log.info("Client created");
-            this.service.createCliente(Cliente.builder()
-                                        .name(cliente.getName())
-                                        .surname(cliente.getSurname())
-                                        .cedula(cliente.getCedula()).build());
+            this.service.createClient(Client.builder()
+                                        .id(client.getId())
+                                        .name(client.getName())
+                                        .address(client.getAddress())
+                                        .phone(client.getPhone())
+                                        .email(client.getEmail()).build());
             return ResponseEntity.ok().build();
         } catch (InsertException e) {
             return ResponseEntity.badRequest().build();

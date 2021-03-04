@@ -28,20 +28,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="cliente")
-public class Cliente {
+public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "cedula", length = 10)
+    private String id;
     
-    @Column(name = "name", length = 256)
+    @Column(name = "nombre", length = 100)
     private String name;
     
-    @Column(name = "surname", length = 256)
-    private String surname;
+    @Column(name = "direcion", length = 100)
+    private String address;
     
-    @Column(name = "cedula", length = 10)
-    private String cedula;
+    @Column(name = "telefono", length = 16)
+    private String phone;
     
-    
+    @Column(name = "correo", length = 100)
+    private String email;
 }

@@ -1,5 +1,5 @@
 
-package ec.edu.espe.examen.relacional.exception;
+package ec.edu.espe.examen.relacional2.exception;
 
 /**
  *

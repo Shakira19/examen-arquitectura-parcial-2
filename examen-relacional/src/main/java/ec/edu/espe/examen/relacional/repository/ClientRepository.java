@@ -7,7 +7,7 @@ package ec.edu.espe.examen.relacional.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ec.edu.espe.examen.relacional.model.Cliente;
+import ec.edu.espe.examen.relacional.model.Client;
 import java.util.List;
 import java.util.Optional;
 /**
@@ -15,11 +15,8 @@ import java.util.Optional;
  * @author cofre
  */
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente,Integer>{
+public interface ClientRepository extends JpaRepository<Client,Integer>{
     
-    List<Cliente> findAll();
-    Optional<Cliente> findById(Integer id);
-    List<Cliente> findByNameLikeIgnoreCaseOrderByNameAsc(String name);
-    List<Cliente> findBySurnameLikeIgnoreCaseOrderBySurnameAsc(String surname);
-    List<Cliente> findByCedulaLike(String cedula);
+    List<Client> findAll();
+    Optional<Client> findById(String id);
 }
